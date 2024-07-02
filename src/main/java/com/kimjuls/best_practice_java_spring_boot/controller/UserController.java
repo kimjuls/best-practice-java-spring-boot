@@ -36,8 +36,13 @@ public class UserController {
     }
 
     @GetMapping("/not-found")
-    public User getNotFoundUserById() {
+    public User getNotFound() {
         return this.userService.getUserById(-1L);
+    }
+
+    @GetMapping("/internal-server-error")
+    public void getInternalServerError() {
+        throw new RuntimeException("Internal Server Error");
     }
 
     @PostMapping
