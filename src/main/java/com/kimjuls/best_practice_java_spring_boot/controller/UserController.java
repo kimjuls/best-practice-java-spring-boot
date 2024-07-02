@@ -14,6 +14,7 @@ import com.kimjuls.best_practice_java_spring_boot.dto.CreateUserDto;
 import com.kimjuls.best_practice_java_spring_boot.dto.UpdateUserDto;
 import com.kimjuls.best_practice_java_spring_boot.model.User;
 import com.kimjuls.best_practice_java_spring_boot.service.UserService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/users")
@@ -32,6 +33,11 @@ public class UserController {
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return this.userService.getUserById(id);
+    }
+
+    @GetMapping("/not-found")
+    public User getNotFoundUserById() {
+        return this.userService.getUserById(-1L);
     }
 
     @PostMapping
