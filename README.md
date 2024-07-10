@@ -8,8 +8,8 @@ The goal of this template is to provide a best practice example that can be easi
 
 This template leverages various elements such as:
 
-- Exception Handling with `ExceptionHandler` and `ControllerAdvice`
-- Request Interception with `Interceptor`
+- Exception Handling with `ExceptionHandler` and `RestControllerAdvice`
+- Implementation of "Envelope-pattern" with `RestControllerAdvice`
 - Database Interaction with JPA and Hibernate
 - Security Implementation
 
