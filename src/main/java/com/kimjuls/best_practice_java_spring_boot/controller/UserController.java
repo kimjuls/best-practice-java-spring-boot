@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kimjuls.best_practice_java_spring_boot.classes.AppException;
+import com.kimjuls.best_practice_java_spring_boot.classes.ExceptionDef;
 import com.kimjuls.best_practice_java_spring_boot.dto.CreateUserDto;
 import com.kimjuls.best_practice_java_spring_boot.dto.UpdateUserDto;
 import com.kimjuls.best_practice_java_spring_boot.model.User;
 import com.kimjuls.best_practice_java_spring_boot.service.UserService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/users")
@@ -31,30 +32,28 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public User getUserById(@PathVariable Long id) throws AppException {
         return this.userService.getUserById(id);
     }
 
     @GetMapping("/not-found")
-    public User getNotFound() {
+    public User getNotFound() throws AppException {
         return this.userService.getUserById(-1L);
     }
 
     @GetMapping("/internal-server-error")
-    public void getInternalServerError() {
-        throw new RuntimeException("Internal Server Error");
+    public void getInternalServerError() throws AppException {
+        throw new AppException(ExceptionDef.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping
-    public String createUser(@RequestBody CreateUserDto dto) {
+    public void createUser(@RequestBody CreateUserDto dto) {
         this.userService.createUser(dto);
-        return "success";
     }
 
     @PutMapping("/{id}")
-    public String putMethodName(@PathVariable Long id, @RequestBody UpdateUserDto dto) {
+    public void updateUser(@PathVariable Long id, @RequestBody UpdateUserDto dto) throws AppException {
         this.userService.updateUser(id, dto);
-        return "successfully updated";
     }
 
 }
