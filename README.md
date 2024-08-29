@@ -12,6 +12,7 @@ This template leverages various elements such as:
 - Implementation of "Envelope-pattern" with `RestControllerAdvice`
 - Database Interaction with JPA and Hibernate
 - Spring Security ACL
+
 And on the next step,
 - Kafka
 - Webflux
