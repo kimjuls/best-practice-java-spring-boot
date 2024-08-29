@@ -27,6 +27,7 @@ Additionally, it includes comprehensive configurations for deploying Spring Boot
 - AWS ECS Task Definition
 - CodeBuild Specification
 - CodeDeploy Specification
+- Deployment Spec YAML for Kubernetes
 
 By utilizing this template, developers can quickly set up a robust Spring Boot application with all necessary components for cloud deployment.
 
