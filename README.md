@@ -11,7 +11,15 @@ This template leverages various elements such as:
 - Exception Handling with `ExceptionHandler` and `RestControllerAdvice`
 - Implementation of "Envelope-pattern" with `RestControllerAdvice`
 - Database Interaction with JPA and Hibernate
-- Security Implementation
+- Spring Security ACL
+
+And on the next step,
+- Kafka
+- Webflux
+- gRPC
+- GraphQL
+- Spring Batch
+- Swagger(OpenAPI doc)
 
 Additionally, it includes comprehensive configurations for deploying Spring Boot services in a cloud (AWS) microservices architecture (MSA) environment. This includes:
 
@@ -19,6 +27,7 @@ Additionally, it includes comprehensive configurations for deploying Spring Boot
 - AWS ECS Task Definition
 - CodeBuild Specification
 - CodeDeploy Specification
+- Deployment Spec YAML for Kubernetes
 
 By utilizing this template, developers can quickly set up a robust Spring Boot application with all necessary components for cloud deployment.
 
