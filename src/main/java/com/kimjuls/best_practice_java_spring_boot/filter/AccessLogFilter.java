@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.kimjuls.best_practice_java_spring_boot.service.KafkaProducerService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -16,6 +19,12 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebFilter(urlPatterns = "/*")
 public class AccessLogFilter extends HttpFilter {
     private static final Logger logger = LoggerFactory.getLogger("ACCESS_LOG");
+    private static final Logger loggerKafka = LoggerFactory.getLogger("KAFKA_LOG");
+    KafkaProducerService producerService;
+
+    public AccessLogFilter(KafkaProducerService producerService) {
+        this.producerService = producerService;
+    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -33,6 +42,12 @@ public class AccessLogFilter extends HttpFilter {
                 ip, request.getMethod(), request.getRequestURI(), response.getStatus(), duration);
 
         logger.info(logMessage);
+        try {
+            producerService.send("logger", logMessage);
+            loggerKafka.info("message to logger");
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+        }
     }
 
     @Override

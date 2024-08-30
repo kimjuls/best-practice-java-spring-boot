@@ -1,7 +1,11 @@
 FROM openjdk:17-jdk-slim
 
-ARG JAR_FILE=target/*.jar
+WORKDIR /app
 
-COPY ${JAR_FILE} app.jar
+COPY . .
+# RUN ./mvnw package
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+# ARG JAR_FILE=target/*.jar
+# COPY ${JAR_FILE} app.jar
+# ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["./mvnw", "spring-boot:run"]
