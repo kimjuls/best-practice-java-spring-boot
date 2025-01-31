@@ -1,34 +1,23 @@
 # best-practice-java-spring-boot
 
-This is an open-source template project based on Spring Boot (Java).
+이 프로젝트는 Java 기반의 Spring Boot 오픈소스 템플릿 프로젝트이다.
 
-## Background and Purpose
+## Summary
 
-The goal of this template is to provide a best practice example that can be easily referenced or directly used when incorporating additional components into a simple Spring Boot application architecture. It is also intended for personal use to streamline project setup.
+## 배경과 목적
 
-This template leverages various elements such as:
+이 템플릿 프로젝트의 목표는 간단한 Spring Boot 애플리케이션 아키텍처에 추가 구성 요소를 통합할 때 참조하거나, 직접 사용할 수 있는 모범 사례 예제를 제공하며 프로젝트 설정을 간소화한다. 체크된 체크박스는 현재까지 완료된 부분을 의미한다.
 
-- Exception Handling with `ExceptionHandler` and `RestControllerAdvice`
-- Implementation of "Envelope-pattern" with `RestControllerAdvice`
-- Database Interaction with JPA and Hibernate
-- Spring Security ACL
+### Code
 
-And on the next step,
-- Kafka
-- Webflux
-- gRPC
-- GraphQL
-- Spring Batch
-- Swagger(OpenAPI doc)
+- [x] 글로벌 에러 핸들러를 이용한 예외 처리
+- [x] Envelope-pattern
+- [x] JPA와 Hibernate ORM 통합
+- [x] Spring Security ACL
 
-Additionally, it includes comprehensive configurations for deploying Spring Boot services in a cloud (AWS) microservices architecture (MSA) environment. This includes:
+### Configuration For AWS Cloud Deployment (a.k.a. ECS)
 
-- Dockerfile
-- AWS ECS Task Definition
-- CodeBuild Specification
-- CodeDeploy Specification
-- Deployment Spec YAML for Kubernetes
+- [ ] Dockerfile
+- [ ] CloudFormation (SAM) YAML
 
-By utilizing this template, developers can quickly set up a robust Spring Boot application with all necessary components for cloud deployment.
-
-For details, please refer [this document](https://julskim.notion.site/Best-Practice-Template-for-Spring-Boot-OpenSource-621ab21ab57c44ccb21b4addb0134fd8?pvs=4)
+이 템플릿을 사용하면 개발자는 클라우드 배포에 필요한 모든 구성 요소를 갖춘 견고한 Spring Boot 애플리케이션을 신속하게 설정할 수 있다.
