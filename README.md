@@ -17,7 +17,7 @@
 
 ### Configuration For AWS Cloud Deployment (a.k.a. ECS)
 
-- [ ] Dockerfile
+- [x] Dockerfile
 - [ ] CloudFormation (SAM) YAML
 
 이 템플릿을 사용하면 개발자는 클라우드 배포에 필요한 모든 구성 요소를 갖춘 견고한 Spring Boot 애플리케이션을 신속하게 설정할 수 있다.
