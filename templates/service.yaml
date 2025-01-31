@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  VpcId:
+    Type: String
+  PrivateSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+  ClusterName:
+    Type: String
+  ECSTaskExecutionRole:
+    Type: String
+  ServiceName:
+    Type: String
+    Default: service-test
+  ImageUri:
+    Type: String
+  ContainerCpu:
+    Type: Number
+    Default: 256
+  ContainerMemory:
+    Type: Number
+    Default: 512
+  DesiredCount:
+    Type: Number
+    Default: 1
+  SecurityGroupPrivateLink:
+    Type: String
+
+Resources:
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Ref ServiceName
+      Cpu: !Ref ContainerCpu
+      Memory: !Ref ContainerMemory
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref ECSTaskExecutionRole
+      ContainerDefinitions:
+        - Name: !Ref ServiceName
+          Cpu: !Ref ContainerCpu
+          Memory: !Ref ContainerMemory
+          Image: !Ref ImageUri
+          PortMappings:
+            - ContainerPort: 3000
+              Protocol: tcp
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              mode: non-blocking
+              max-buffer-size: 25m
+              awslogs-group: !Ref LogGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: !Ref ServiceName
+              awslogs-create-group: true
+          Command: ["java", "-jar", "app.jar"]
+
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Ref ServiceName
+      Cluster: !Ref ClusterName
+      LaunchType: FARGATE
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          SecurityGroups:
+            - !Ref SecurityGroupService
+          Subnets: !Ref PrivateSubnetIds
+      DesiredCount: !Ref DesiredCount
+      TaskDefinition: !Ref TaskDefinition
+
+  SecurityGroupService:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for service
+      VpcId: !Ref VpcId
+
+  PrivateLinkIngressFromService:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      Description: Ingress from the services deployed in AWS Fargate
+      GroupId: !Ref SecurityGroupPrivateLink
+      IpProtocol: -1
+      SourceSecurityGroupId: !Ref SecurityGroupService
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
