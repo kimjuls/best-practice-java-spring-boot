@@ -8,7 +8,7 @@
 
 ### Spring Boot Project
 
-- Envelope-pattern 구현([AppExceptionHandlerAdvice.java](src/main/java/com/kimjuls/best_practice_java_spring_boot/advice/AppResponseBodyAdvice.java)): ResponseBodyAdvice 인터페이스를 구현하는 RestControllerAdvice Bean 클래스를 생성하고, JSON (역)직렬화가 가능한지, 가능하다면 약속된 응답 객체의 인스턴스 타입인지 등의 조건을 확인하여 적절한 응답을 내린다. 특히, 직렬화 가능여부를 MappingJackson2HttpMessageConverter 클래스로 확인하는 부분이 핵심이다. 체크하지 않는다면, AppResponse 생성자에 직렬화가 불가능한 body가 인자로 입력되고, 에러가 발생할 것이다.
+- Envelope-pattern 구현([AppResponseBodyAdvice.java](src/main/java/com/kimjuls/best_practice_java_spring_boot/advice/AppResponseBodyAdvice.java)): ResponseBodyAdvice 인터페이스를 구현하는 RestControllerAdvice Bean 클래스를 생성하고, JSON (역)직렬화가 가능한지, 가능하다면 약속된 응답 객체의 인스턴스 타입인지 등의 조건을 확인하여 적절한 응답을 내린다. 특히, 직렬화 가능여부를 MappingJackson2HttpMessageConverter 클래스로 확인하는 부분이 핵심이다. 체크하지 않는다면, AppResponse 생성자에 직렬화가 불가능한 body가 인자로 입력되고, 에러가 발생할 것이다.
 
   ```java
   @RestControllerAdvice
